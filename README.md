@@ -63,36 +63,35 @@ The algorithm is as follows:
 
 ## VALUE ITERATION FUNCTION:
 ```
-python
-def value_iteration(P, gamma=1.0, theta=1e-10):
-    # Initialize the value function V as an array of zeros
-    V = np.zeros(len(P), dtype=np.float64)
-    
-    while True:
-        # Initialize the action-value function Q as an array of zeros
-        Q = np.zeros((len(P), len(P[0])), dtype=np.float64)
-        
-        for s in range(len(P)):
-            for a in range(len(P[s])):
-                for prob, next_state, reward, done in P[s][a]:
-                    # Update the action-value function Q using the Bellman equation
-                    Q[s][a] += prob * (reward + gamma * V[next_state] * (not done))
-        
-        # Check if the maximum difference between Old V and new V is less than theta.
-        if np.max(np.abs(V - np.max(Q, axis=1))) < theta:
-            break
-        
-        # Update the value function V with the maximum action-value from Q
-        V = np.max(Q, axis=1)
+import gym
+desc=['SFFF','FHFF','HFFF','FGFF']
+env = gym.make('FrozenLake-v1',desc=desc)
+init_state = env.reset()
+goal_state = 13
+P = env.env.P
 
-    # Compute the policy pi based on the action-value function Q
-    pi = lambda s: {s: a for s, a in enumerate(np.argmax(Q, axis=1))}[s]
-    
+
+def value_iteration(P, gamma=1.0, theta=1e-10):
+    V = np.zeros(len(P), dtype=np.float64)
+    while True:
+      Q=np.zeros((len(P),len(P[0])),dtype=np.float64)
+      for s in range(len(P)):
+        for a in range(len(P[s])):
+          for prob,next_state,reward,done in P[s][a]:
+            Q[s][a]+=prob*(reward+gamma*V[next_state]*(not done))
+      if(np.max(np.abs(V-np.max(Q,axis=1))))<theta:
+        break
+      V=np.max(Q,axis=1)
+    pi=lambda s:{s:a for s , a in enumerate(np.argmax(Q,axis=1))}[s]
     return V, pi
 ```
 
 ## OUTPUT:
-![output](op2.png)
+![Ex 4-1](https://github.com/PAARKAVYB/rl-value-iteration/assets/93509383/e55920ee-b905-4c7d-a14b-e014539c16e1)
+
+![Ex 4-2](https://github.com/PAARKAVYB/rl-value-iteration/assets/93509383/e306198b-d8a7-4767-9ad8-5eec38cf655c)
+
+![Ex 4-3](https://github.com/PAARKAVYB/rl-value-iteration/assets/93509383/80399128-2266-4372-94d2-08d0360d2550)
 
 ## RESULT:
 Thus, a Python program is developed to find the optimal policy for the given MDP using the value iteration algorithm.
