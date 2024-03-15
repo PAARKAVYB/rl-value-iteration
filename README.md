@@ -9,7 +9,7 @@ Reg No : 212221230072
 To develop a Python program to find the optimal policy for the given MDP using the value iteration algorithm.
 
 ## PROBLEM STATEMENT:
-The FrozenLake environment in OpenAI Gym is a gridworld problem that challenges reinforcement learning agents to navigate a slippery terrain to reach a goal state while avoiding hazards. Note that the environment is closed with a fence, so the agent cannot leave the gridworld.
+The FrozenLake environment in OpenAI Gym is a grid world problem that challenges reinforcement learning agents to navigate a slippery terrain to reach a goal state while avoiding hazards. Note that the environment is closed with a fence, so the agent cannot leave the grid world.
 
 ### STATES:
 - **5 Terminal States**:
@@ -61,7 +61,7 @@ The algorithm is as follows:
 4. The optimal policy can be constructed by taking the argmax of the action-value function Q(s, a) over all actions a.
 5. Return the optimal policy and the optimal value function.
 
-## VALUE ITERATION FUNCTION:
+## PROGRAM:
 ```
 import gym
 desc=['SFFF','FHFF','HFFF','FGFF']
